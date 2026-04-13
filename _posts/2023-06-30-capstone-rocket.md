@@ -12,10 +12,12 @@ tags:
 # Project Overview: Dual-Stage High-Altitude Rocketry
 
 For our undergraduate capstone, my team and I designed and manufactured a high-power rocket tasked with carrying a fragile payload (an egg) to maximum altitude and returning it safely. While the project allowed for single-stage or hybrid designs, we chose to develop a two-stage rocket to challenge ourselves with increased system complexity and advanced avionics integration.
-Ignition Strategy & Safety
+
+#### Ignition Strategy & Safety
 
 We implemented an electronic ignition system for the second stage. This method was selected over mechanical alternatives because it offered superior reliability and an added safety margin; specifically, the flight computer could inhibit ignition if the rocket’s ascent angle deviated from a safe vertical trajectory.
-Avionics & Circuit Design
+
+#### Avionics & Circuit Design
 
 As the Electronics and Ignition Lead, I headed the design and performance validation of the flight package. The core requirement was the precision-timed triggering of the second-stage motor that incorporated safety features, such as no possibility of pre-launch ignition, nor ignition if the rocket did not reach above a threshold altitude upon launch.
 

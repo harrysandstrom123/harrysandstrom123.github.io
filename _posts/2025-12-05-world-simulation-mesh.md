@@ -9,7 +9,7 @@ tags:
   - Graduate
 ---
 
-# This article is a workin progress
+# This article is a work in progress
 
 
 # Elastic World Simulation Model
@@ -22,9 +22,7 @@ The model is simulated through the creation of a mesh that has $N\times N$ nodes
 
 The system operates through the use of an Implicit Euler solver using the Newton-Raphson method for stability. Every timestep in the simulation uses an objective function to minimize error on the system energy + inertial potentials.
 
-Due to the introduction of the balls simulating the planets I had to implement a simple contact model that would apply the force of a ball over the surface.
-
-
+Due to the introduction of the balls simulating the planets I had to implement a simple contact model that would apply the force of a ball over the surface that was proportional to the ball's penetration through the surface.
 
 
 ![Orbiting Diagram](/assets/images/multi_ball_impact_rolling.gif){: width="90%"}
