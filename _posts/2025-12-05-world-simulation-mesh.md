@@ -2,6 +2,7 @@
 title: "Elastic World Simulation Model"
 date: 2025-12-03
 excerpt_separator: "<!--more-->"
+use_math: true
 categories:
   - blog
 tags:
