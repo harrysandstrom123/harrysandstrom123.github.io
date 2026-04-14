@@ -1,6 +1,6 @@
 ---
 title: "Modelling the Skies: Comparing Theoretical and Experimental Glider Flight Paths"
-date: 2025-12-03
+date: 2020-03-20
 excerpt_separator: "<!--more-->"
 use_math: true
 categories:
@@ -17,7 +17,6 @@ Predicting the trajectory of an aircraft is essential for applications ranging f
 To test our theoretical model, we constructed a simple glider with a $1.4$ m wingspan and a total mass of $440$ grams. The aircraft was built from accessible materials, including foam core poster board and wooden dowels. We utilized a KF-step airfoil for the wings, a design favored by hobbyists for its simplicity and effectiveness.
 
 ![Plane Picture](/assets/images/glider/airplane_design.png){: width="90%"}
-
 
 **Our data collection system relied on**:
 
@@ -53,3 +52,5 @@ Several sources of error impacted our results, most notably the limitations of o
 - **Mechanical Launching**: A dedicated launch contraption would ensure a consistent initial angle $(θ)$, reducing human variability.
 
 - **High-Speed Videography**: Using high-resolution, high-framerate cameras would allow for superior tracking of the entire flight path.
+
+![Hand Launch Picture](/assets/images/glider/airplane_flight_img.png){: width="90%"}

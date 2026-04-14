@@ -1,6 +1,6 @@
 ---
 title: "Elastic World Simulation Model"
-date: 2025-12-03
+date: 2025-12-05
 excerpt_separator: "<!--more-->"
 use_math: true
 categories:
