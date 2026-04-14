@@ -54,7 +54,7 @@ Special thanks to my teammates who helped make this flight happen.
 
 # Code Appendix
 
-Below is the actual code that ran on the rocket
+Below is the actual code that ran on the rocket (and 3 others that did not have working second stage ignition software on launch day).
 
  ``` c
 #include <Wire.h>

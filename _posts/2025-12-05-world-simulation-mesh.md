@@ -10,9 +10,6 @@ tags:
   - Graduate
 ---
 
-# This article is a work in progress
-
-
 # Elastic World Simulation Model
 
 For the final project of the class MAE 263F Flexible Robotics at ucla. I created a simulation model based off of a [spandex gravity well model][orbital link].
