@@ -11,3 +11,5 @@ tags:
 
 # This article is a work in progress
 
+*just a teaser*
+![wearSimFull](/assets/images/wear_sim/wear_sim_full.jpg){: width="90%"}

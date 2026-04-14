@@ -1,5 +1,5 @@
 ---
-title: "Elastic World Simulation Model"
+title: "Elastic Sheet Gravity Simulation Model"
 date: 2025-12-05
 excerpt_separator: "<!--more-->"
 use_math: true
