@@ -11,5 +11,3 @@ tags:
 
 # This article is a work in progress
 
-# Joint Replacement Wear Simulator
-

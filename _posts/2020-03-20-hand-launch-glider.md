@@ -1,5 +1,5 @@
 ---
-title: "#Modelling the Skies: Comparing Theoretical and Experimental Glider Flight Paths"
+title: "Modelling the Skies: Comparing Theoretical and Experimental Glider Flight Paths"
 date: 2025-12-03
 excerpt_separator: "<!--more-->"
 use_math: true
@@ -9,9 +9,6 @@ tags:
   - Projects
   - Undergraduate
 ---
-
-# This article is currently a work in progress.
-# Modelling the Skies: Comparing Theoretical and Experimental Glider Flight Paths
 
 Predicting the trajectory of an aircraft is essential for applications ranging from hobbyist soaring to humanitarian aid delivery. Our experiment sought to determine if a simple glider’s flight path could be accurately modeled using general aircraft formulas for lift and drag under ideal scenarios.
 
