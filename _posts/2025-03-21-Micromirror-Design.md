@@ -43,9 +43,11 @@ The performance was validated using two primary methods: a custom **Euler stiffn
 | **Mode 2 (Tilting)** | 374.486 kHz | 307.052 kHz |
 
 ![Mode 1](/assets/images/micro_mirror/Frequency_Analysis_m1.png){: width="90%"}
+
 *Mode 1 - Pistoning Modal Analysis (28.7 kHz) in SolidWorks*
 
 ![Mode 2](/assets/images/micro_mirror/Frequency_Analysis_m2.png){: width="90%"}
+
 *Mode 2 - Twisting Modal Analysis (307.052 kHz) in SolidWorks*
 
 The analysis confirmed that secondary resonant modes occur at frequencies more than **one order of magnitude higher** than the primary pistoning mode, ensuring stable operation without unwanted tilting.
