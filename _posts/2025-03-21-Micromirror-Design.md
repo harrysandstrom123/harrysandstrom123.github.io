@@ -10,6 +10,7 @@ tags:
   - Graduate
 ---
 # Single DOF Actuated Piston Micro-Mirror
+This project was completed for the course MAE C294A at UCLA entitled: *Compliant Mechanism Design*
 
 ### Project Overview
 Micro-mirror arrays are essential for precision optical applications, including **LIDAR**, **optical communication**, and **wavefront shaping**. While most market options focus on tip-tilt-piston motion, this project focuses on the design of a **pistoning-only micro-mirror** optimized for high-speed phase modulation. By utilizing the **FACT (Freedom and Constraint Topologies) methodology**, I developed a symmetric stacked blade flexure that maximizes axial compliance while suppressing off-axis resonant modes.
