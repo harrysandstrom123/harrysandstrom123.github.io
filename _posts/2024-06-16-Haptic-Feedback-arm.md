@@ -59,6 +59,17 @@ While theoretically more sophisticated, the impedance controller faced implement
 
 *Figure: Impedance Control End Effector Distance Error In Free Space*
 
+Furthermore, once an object was put in front of the impedance controller that forced it into a singularity position, its pwm signals became saturated very quickly leading to the motors moving in an extremely jerky manner at the output end and passing through some of that noise back to the leader arm.
+
+![PWM Signals Impedance](/assets/images/teleop/impedance_pwm.png){: width="90%"}
+
+*Figure: Saturated PWM Signals on Follower Joints Under Impedance Control. Spikes Occur at Singularity Joint Angles*
+
+<video width="100%" controls>
+  <source src="{{ '/assets/images/Contact-Impedance.mp4' | relative_url }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ### Comparative Success: Gain Scheduling
 In contrast, our **Gain Scheduling** algorithm proved more robust for real-world obstacle interaction. By incrementing the proportional gain of the leader arm linearly ($K_{P_{L}} = K_{P_{L}} \times (1 + 0.2 \times iterations)$) when tracking error persisted, it effectively "slowed down" the user's hand during collisions. This provided a much more reliable haptic experience than the impedance controller's current iteration.
 
