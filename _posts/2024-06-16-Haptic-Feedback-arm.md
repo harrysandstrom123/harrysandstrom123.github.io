@@ -10,9 +10,7 @@ tags:
   - Robotics
 ---
 
-# Project Overview: Haptic Robotic Control
-
-In this graduate-level project, my team and I developed a force-feedback teleoperation system using two identical 2R robotic arms. The system operates on a "Leader-Follower" principle: a user manipulates the leader arm, and the follower arm mimics those movements in a remote workspace. The primary goal was to create a haptic loop where the user could "feel" the environment; if the follower arm collided with an obstacle, the system communicated that resistance back to the leader arm.
+In this project for MAE 263C Robotic Controls, my team and I developed a force-feedback teleoperation system using two identical 2R robotic arms. The system operates on a "Leader-Follower" principle: a user manipulates the leader arm, and the follower arm mimics those movements in a remote workspace. The primary goal was to create a haptic loop where the user could "feel" the environment; if the follower arm collided with an obstacle, the system communicated that resistance back to the leader arm.
 
 #### Design Objectives
 To ensure a high-fidelity experience, the system had to meet several rigorous specifications:
