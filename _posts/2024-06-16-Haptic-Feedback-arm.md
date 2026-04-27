@@ -76,6 +76,12 @@ In contrast, our **Gain Scheduling** algorithm proved more robust for real-world
 
 ![Position Error Graph](/assets/images/teleop/error_plots_pd.png){: width="90%"}
 
+<video width="100%" autoplay muted loop playsinline>
+  <source src="{{ '/assets/images/teleop/Contact-PD-Gain-Scheduling.mp4' | relative_url }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
 ## Challenges and Lessons Learned
 
 The greatest hurdle we faced was **latency**; motor read/write commands introduced over 40ms of delay per iteration, capping our control frequency at 25 Hz. In future iterations, we would prioritize:
