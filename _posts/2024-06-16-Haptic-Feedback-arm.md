@@ -1,7 +1,8 @@
 ---
 title: "Force Feedback Teleoperation"
 date: 2024-06-16
-excerpt_separator: ""
+excerpt_separator: "<!--more-->"
+use_math: true
 categories:
   - blog
 tags:
