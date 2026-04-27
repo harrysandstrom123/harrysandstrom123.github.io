@@ -66,7 +66,7 @@ Furthermore, once an object was put in front of the impedance controller that fo
 *Figure: Saturated PWM Signals on Follower Joints Under Impedance Control. Spikes Occur at Singularity Joint Angles*
 
 <video width="100%" controls>
-  <source src="{{ '/assets/images/Contact-Impedance.mp4' | relative_url }}" type="video/mp4">
+  <source src="{{ '/assets/images/teleop/Contact-Impedance.mp4' | relative_url }}" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
