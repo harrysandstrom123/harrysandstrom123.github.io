@@ -12,57 +12,74 @@ tags:
 
 # Project Overview: Haptic Robotic Control
 
-[cite_start]In this graduate-level project, my team and I developed a force-feedback teleoperation system using two identical 2R robotic arms[cite: 17, 41]. [cite_start]The system operates on a "Leader-Follower" principle: a user manipulates the leader arm, and the follower arm mimics those movements in a remote workspace[cite: 22, 24]. [cite_start]The primary goal was to create a haptic loop where the user could "feel" the environment; if the follower arm collided with an obstacle, the system communicated that resistance back to the leader arm, making it physically harder to move[cite: 27, 28].
+In this graduate-level project, my team and I developed a force-feedback teleoperation system using two identical 2R robotic arms. The system operates on a "Leader-Follower" principle: a user manipulates the leader arm, and the follower arm mimics those movements in a remote workspace. The primary goal was to create a haptic loop where the user could "feel" the environment; if the follower arm collided with an obstacle, the system communicated that resistance back to the leader arm.
 
 #### Design Objectives
 To ensure a high-fidelity experience, the system had to meet several rigorous specifications:
-* [cite_start]**Tracking Precision:** End effector offset error of less than 5mm in free space[cite: 33].
-* [cite_start]**Responsiveness:** The follower arm had to match the leader's position within 0.5 seconds[cite: 34].
-* [cite_start]**Haptic Fidelity:** The leader arm needed to provide approximately 50 N/m of resistive force feedback upon contact[cite: 37].
-* [cite_start]**Stability:** Both arms required an oscillation time of under 1 second for any user input[cite: 36].
+* **Tracking Precision:** End effector offset error of less than 5mm in free space.
+* **Responsiveness:** The follower arm had to match the leader's position within 0.5 seconds.
+* **Haptic Fidelity:** The leader arm needed to provide approximately 50 N/m of resistive force feedback upon contact.
+* **Stability:** Both arms required an oscillation time of under 1 second.
 
-![Robot Setup Photo](/assets/images/teleop/robot_setup.png){: width="90%"}
+![Robot Setup Photo](/assets/images/teleop/robot_setup.jpg){: width="90%"}
 
 ## System Configuration and Methods
 
-[cite_start]We utilized two 2R robot arms, each equipped with two Dynamixel MX-28AR motors mounted on an optical breadboard[cite: 41, 44]. [cite_start]For our testing, the arm on the left served as the leader, while the arm on the right acted as the follower[cite: 46].
+We utilized two 2R robot arms, each equipped with two Dynamixel MX-28AR motors mounted on an optical breadboard. While we tested decentralized PD and Gain Scheduling, a significant portion of our research focused on **Impedance Control**.
 
-[cite_start]As part of this project, I specifically headed the implementation and gain tuning for the **Impedance Control** system. We explored three distinct control architectures to compare their effectiveness:
+### Impedance Control Implementation
+Unlike decentralized methods, impedance control is a centralized indirect force control strategy. It allows the designer to define an "apparent" task-space stiffness, damping, and inertia that the robot should exhibit. My role focused on the code and gain tuning for this implementation:
 
-1.  [cite_start]**Decentralized Position and Velocity Control:** A straightforward approach where each motor was adjusted independently based on encoder feedback[cite: 51, 56].
-2.  [cite_start]**Gain Scheduling:** An enhancement to the standard PD control that adjusted proportional gains based on the duration of the tracking error, providing a more "aggressive" resistance when obstacles were hit[cite: 98, 101].
-3.  [cite_start]**Impedance Control:** A centralized method designed to set virtual stiffness and damping characteristics[cite: 66]. [cite_start]This involved complex calculations to convert joint space variables to task space coordinates and computing inverse dynamics[cite: 68, 71].
+* **Task-Space Transformation:** Measured joint space positions and velocities were converted to task-space coordinates.
+* **Virtual Mass Dynamics:** We utilized an inverse virtual mass matrix, $M_d^{-1}$, to convert an end-effector force into a desired acceleration.
+* **The Control Pipeline:** This acceleration was then multiplied by an inverse analytical Jacobian, $J_A^{-1}(q)$, and an inverse dynamics matrix, $B(q)$, to find the appropriate joint torques.
+* **Trajectory Mapping:** The kinematics of the leader arm became the trajectory of the follower, and the kinematics of the follower became the trajectory of the leader, creating a bidirectional feedback loop.
 
-![Control Block Diagram](/assets/images/teleop/block_diagram.png){: width="90%"}
+![Impedance Leader Block](/assets/images/teleop/block_diagram_leader_impedance.png){: width="90%"}
+
+*Figure: Impedance Controller Leader Block Diagram*
+
+![Impedance Follower Block](/assets/images/teleop/block_diagram_follower_impedance.png){: width="90%"}
+
+*Figure: Impedance Controller Follower Block Diagram*
+
+<!-- ![Control Block Diagram](/assets/images/teleop/block_diagram.png){: width="90%"} -->
+
 
 ## Performance Analysis & Results
 
-[cite_start]Our testing revealed that while simple PD control was easy to implement, it failed to meet our 5mm tracking requirement and provided poor force feedback—users had to move the leader arm significantly far from the follower to feel any resistance[cite: 213, 316].
+### The Challenge with Impedance Control
+While theoretically more sophisticated, the impedance controller faced implementation hurdles that impacted its real-world performance: 
 
-#### Free Space Tracking
-[cite_start]The **Gain Scheduling** controller performed the best in free space, nearly satisfying the < 5mm error requirement across the entire path[cite: 214]. [cite_start]The **Impedance Control** system, which I worked on, faced challenges with tracking Joint 2 accurately, likely due to the computational cost of calculating centralized arm dynamics and errors in the inverse Jacobian implementation[cite: 130, 249, 250].
+* **Tracking Failure:** The controller failed to meet our 5mm tracking target, primarily due to excessive error in Joint 2. This was likely caused by inaccuracies in the implementation of the inverse analytical Jacobian and the virtual mass calculations.
+* **Singular Configurations:** A critical issue was the tendency for the follower arm to move into a singular position. Once in a singularity, the motors produced chaotic torque inputs, leading to total system failure.
+* **Stability vs. Noise:** To combat sensor noise, we implemented a moving average filter. However, this introduced additional delay, limiting our ability to increase damping high enough to stabilize the manipulator without causing oscillations.
 
-#### Obstacle Interaction
-The highlight of the project was the performance of the Gain Scheduling algorithm during contact. [cite_start]We observed that the leader arm's trajectory would "flatten" when the follower hit an object, indicating the user's hand was being physically slowed by the increased motor torque[cite: 277, 279]. [cite_start]This provided the intuitive "haptic" feel we were aiming for[cite: 280]. [cite_start]In contrast, the Impedance controller became unstable during certain singular configurations, leading to erratic movements[cite: 267, 300].
+![Position Error Graph Impedance](/assets/images/teleop/error_plots_impedance.png){: width="90%"}
 
-![Position Error Graph](/assets/images/teleop/error_plots.png){: width="90%"}
+*Figure: Impedance Control End Effector Distance Error In Free Space*
+
+### Comparative Success: Gain Scheduling
+In contrast, our **Gain Scheduling** algorithm proved more robust for real-world obstacle interaction. By incrementing the proportional gain of the leader arm linearly ($K_{P_{L}} = K_{P_{L}} \times (1 + 0.2 \times iterations)$) when tracking error persisted, it effectively "slowed down" the user's hand during collisions. This provided a much more reliable haptic experience than the impedance controller's current iteration.
+
+![Position Error Graph](/assets/images/teleop/error_plots_pd.png){: width="90%"}
 
 ## Challenges and Lessons Learned
 
-The greatest hurdle we faced was **latency**. [cite_start]Motor read and write commands introduced over 40ms of delay per iteration, capping our control frequency at 25 Hz[cite: 371, 372]. [cite_start]This delay often resulted in "jerky" movements and limited our ability to increase damping without destabilizing the system[cite: 373]. 
-
-[cite_start]Additionally, we discovered that setting the leader arm's derivative gain to zero was actually beneficial[cite: 369]. [cite_start]Because the user's hand acts as a natural damper, it absorbs shocks that would normally require complex software damping[cite: 370].
-
-[cite_start]In the future, I would look toward using high-frequency microcontrollers like an Arduino or Teensy to boost the control loop frequency and implementing low-pass filters to mitigate the sensor noise we encountered[cite: 375, 377, 378].
+The greatest hurdle we faced was **latency**; motor read/write commands introduced over 40ms of delay per iteration, capping our control frequency at 25 Hz. In future iterations, we would prioritize:
+* **Higher Frequency Control:** Using a dedicated microcontroller like a Teensy to reduce loop times.
+* **Advanced Filtering:** Replacing the moving average with a more robust low-pass filter to reduce noise without the same level of delay.
+* **Singularity Management:** Developing a "controller hand-off" strategy to prevent the arm from entering singular configurations.
 
 ***
 
-### Team Contributions
-* [cite_start]**Jed:** CAD, assembly, and Impedance gain tuning.
-* [cite_start]**Dylan:** PD and Gain Scheduling design and coding.
-* **Harry:** Impedance control coding and gain tuning.
-* [cite_start]**Alexander:** Impedance design/code and PD gain tuning.
+### Team Members
+* **Jed Langer Weida** (UCLA): Arm CAD, assembly, and controller design.
+* **Harry Sandstrom** (UCLA): Impedance control code and gain tuning.
+* **Dylan Santora** (UCLA): Decentralized PD and Gain Scheduling design.
+* **Alexander Tsao** (UCLA): Impedance design and PD gain tuning.
 
 ### References
-* Hirzinger, G., et al. (2005). [cite_start]"Rokviss-robotics component verification on ISS"[cite: 394].
-* Bruno Siciliano, et al. (2010). "Robotics: Modelling, Planning and Control"[cite: 402].
+* [1] Hirzinger, G., et al. (2005). "Rokviss-robotics component verification on ISS".
+* [2] Kron, A., et al. (2004). "Disposal of explosive ordnances by use of a bimanual haptic telepresence system".
+* [3] Bruno Siciliano, et al. (2010). "Robotics: Modelling, Planning and Control".
